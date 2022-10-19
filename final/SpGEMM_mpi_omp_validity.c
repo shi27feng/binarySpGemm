@@ -88,7 +88,8 @@ void SpGEMM_omp(int  *Acol, int *Arow, int An,
     }
 
     // do every slice in parallel
-    #pragma omp parallel private(i) {
+    #pragma omp parallel private(i) 
+    {
         #pragma omp for schedule(static) nowait
         for(i = 0; i < slices; i++ ) {
             SpGEMM_bigslice(Acol, Arow, An,

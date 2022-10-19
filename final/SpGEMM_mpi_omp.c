@@ -86,7 +86,8 @@ void SpGEMM_omp(int  *Acol, int *Arow, int An,
     }
 
     // do every slice in parallel
-    #pragma omp parallel private(i) {
+    #pragma omp parallel private(i) 
+    {
         #pragma omp for schedule(static) nowait
         for (i = 0; i < slices; i++) {
             SpGEMM_bigslice(Acol, Arow, An,
@@ -99,7 +100,7 @@ void SpGEMM_omp(int  *Acol, int *Arow, int An,
 
     // calculate nnz for the final Ccol and allocate enough space at once
     int nnz =0;
-    for(i = 0; i < slices; i++){
+    for(i = 0; i < slices; i++) {
         nnz += Crow_tBlock[i][tBlock];
     }
     *Ccol = malloc(nnz * sizeof(int));
