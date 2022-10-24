@@ -56,16 +56,27 @@ void SpGEMM_bigslice(int  *Acol, int *Arow, int An,
 }
 
 
-// OpenMP implementation of SpGEMM
-// A and B are CSR matrices, C will also be CSR
-//
-// tBlock is the number of rows each thread will do
-//
-// needs n to be divisible by tBlock.
-//
-// making it work with non-divisible matrix sizes is easy to do
-// but not required for the extent of this assignment
-// since it will always be for test matrices with lengths multiples of 10
+/**
+ * @brief 
+ * 
+ * @param Acol 
+ * @param Arow 
+ * @param An 
+ * @param Bcol 
+ * @param Brow 
+ * @param Bm 
+ * @param Ccol 
+ * @param Crow 
+ * @param tBlock 
+ * 
+ * OpenMP implementation of SpGEMM
+ * A and B are CSR matrices, C will also be CSR
+ * tBlock is the number of rows each thread will do
+ * need n to be divisible by tBlock. 
+ * Making it work with non-divisible matrix sizes is easy to do, 
+ * but not required for the extent of this assignment, 
+ * since it will always be for test matrices with lengths multiples of 10
+ */
 void SpGEMM_omp(int  *Acol, int *Arow, int An, 
                 int  *Bcol, int *Brow, int Bm,
                 int **Ccol, int *Crow,

@@ -10,19 +10,34 @@
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 #define isroot if(rank==0)
 
-
-//SpGEMM for C(start_row:end_row,:)
+/**
+ * @brief 
+ * 
+ * @param Acol 
+ * @param Arow 
+ * @param An 
+ * @param Bcol 
+ * @param Brow 
+ * @param Bm 
+ * @param Ccol 
+ * @param Crow 
+ * @param Csize 
+ * @param start_row 
+ * @param end_row 
+ * 
+ * SpGEMM for C(start_row:end_row,:)
+ */
 void SpGEMM_bigslice(int  *Acol, int *Arow, int An, 
                      int  *Bcol, int *Brow, int Bm,
                      int **Ccol, int *Crow, int *Csize,
                      int start_row, int end_row) {
     int nnzcum = 0;                        // the sum of nnz at any given time
     bool *xb = calloc(Bm, sizeof(bool));   // a binary array of flags to not add elements more than one time
-    int ip = 0;                              // row pointer in Crow
+    int ip = 0;                            // row pointer in Crow
 
     for (int i = start_row; i < end_row; i++) {
-        int nnzpv = nnzcum;             // nnz of previous row;
-        Crow[ip++] = nnzcum;            // update Crow at the start of every row caclulation
+        int nnzpv = nnzcum;              // nnz of previous row;
+        Crow[ip++] = nnzcum;             // update Crow at the start of every row caclulation
 
         if (nnzcum + Bm > *Csize){       // make more space if there isnt at least enough for a whole row (the max elements that can be added)
             *Csize += MAX(Bm, *Csize/4);
