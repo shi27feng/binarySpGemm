@@ -240,9 +240,9 @@ void SpGEMM_masked(int  *Acol, int *Arow, int An,
         }
 
         //add row mask
-        for (int jj = Frow[i]; jj < Frow[i + 1]; jj++){    // this and the part below using F is the only difference
-            xb[ Fcol[jj] ] = false;                 // to the normal algorithm.
-        }                                           // It just turns the flag bits than can be added to 0
+        for (int jj = Frow[i]; jj < Frow[i + 1]; jj++) { // this and the part below using F is the only difference
+            xb[ Fcol[jj] ] = false;                      // to the normal algorithm.
+        }                                                // It just turns the flag bits than can be added to 0
 
         // gustavson
         for (int jj = Arow[i]; jj < Arow[i + 1]; jj++){
