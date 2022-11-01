@@ -88,7 +88,6 @@ void SpGEMM_omp(int  *Acol, int *Arow, int An,
     int **Ccol_tBlock = malloc(slices * sizeof(int*));    // Ccol for every slice
     int **Crow_tBlock = malloc(slices * sizeof(int*));    // Crow for every slice
 
-
     uint32_t i, init_size = Bm; // initial size of every Ccol is Bm
 
     // initialize the matrices
@@ -100,7 +99,7 @@ void SpGEMM_omp(int  *Acol, int *Arow, int An,
 
     // do every slice in parallel
     #pragma omp parallel private(i)
-    {
+    {   // DO NOT move this bracklet to the above line
         #pragma omp for schedule(static) nowait
         for(i = 0; i < slices; i++ ) {
             SpGEMM_bigslice(Acol, Arow, An,
